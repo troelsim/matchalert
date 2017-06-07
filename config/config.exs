@@ -22,6 +22,17 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# SMTP
+config :headsup, Headsup.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  port: 587,
+  server: "smtp.sendgrid.net",
+  username: "***REMOVED***",
+  password: "***REMOVED***",
+  tls: :if_available,
+  ssl: false,
+  retries: 1
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

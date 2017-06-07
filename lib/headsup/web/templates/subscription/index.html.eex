@@ -1,0 +1,26 @@
+<h2>Listing Subscriptions</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for subscription <- @subscriptions do %>
+    <tr>
+      <td><%= subscription.email %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: subscription_path(@conn, :show, subscription), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: subscription_path(@conn, :edit, subscription), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: subscription_path(@conn, :delete, subscription), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Subscription", to: subscription_path(@conn, :new) %></span>

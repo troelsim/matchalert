@@ -17,6 +17,12 @@ defmodule Headsup.Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    resources "/subscriptions", SubscriptionController
+    resources "/player_subscriptions", PlayerSubscriptionController
+    resources "/players", PlayerController
+    get "/:uuid", SubscriptionController, :verify
+
   end
 
   # Other scopes may use custom stacks.

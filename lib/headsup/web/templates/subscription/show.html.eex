@@ -1,0 +1,13 @@
+<h2>Show Subscription</h2>
+
+<ul>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @subscription.email %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: subscription_path(@conn, :edit, @subscription) %></span>
+<span><%= link "Back", to: subscription_path(@conn, :index) %></span>
