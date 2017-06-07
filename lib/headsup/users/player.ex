@@ -6,7 +6,7 @@ defmodule Headsup.Users.Player do
 
   schema "users_players" do
     field :name, :string
-    has_many :player_subscriptions, PlayerSubscription
+    many_to_many :subscriptions, Headsup.Users.Subscription, join_through: Headsup.Users.PlayerSubscription, on_replace: :delete
     timestamps()
   end
 

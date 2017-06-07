@@ -10,7 +10,8 @@ defmodule Headsup.Web.SubscriptionController do
 
   def new(conn, _params) do
     changeset = Users.change_subscription(%Headsup.Users.Subscription{})
-    render(conn, "new.html", changeset: changeset)
+    players = Users.list_players()
+    render(conn, "new.html", changeset: changeset, players: players)
   end
 
   def create(conn, %{"subscription" => subscription_params}) do
@@ -49,19 +50,21 @@ defmodule Headsup.Web.SubscriptionController do
   def edit(conn, %{"id" => id}) do
     subscription = Users.get_subscription!(id)
     changeset = Users.change_subscription(subscription)
-    render(conn, "edit.html", subscription: subscription, changeset: changeset)
+    players = Users.list_players()
+    render(conn, "edit.html", subscription: subscription, changeset: changeset, players: players)
   end
 
   def update(conn, %{"id" => id, "subscription" => subscription_params}) do
     subscription = Users.get_subscription!(id)
+    players = Users.list_players()
 
-    case Users.update_subscription(subscription, subscription_params) do
+    case Users.set_players_for_subscription(subscription, subscription_params) do
       {:ok, subscription} ->
         conn
         |> put_flash(:info, "Subscription updated successfully.")
         |> redirect(to: subscription_path(conn, :show, subscription))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", subscription: subscription, changeset: changeset)
+        render(conn, "edit.html", subscription: subscription, changeset: changeset, players: players)
     end
   end
 

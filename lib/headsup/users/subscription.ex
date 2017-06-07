@@ -9,8 +9,7 @@ defmodule Headsup.Users.Subscription do
     field :uuid, :string
     field :verified, :boolean
 
-    has_many :player_subscriptions, PlayerSubscription
-
+    many_to_many :players, Headsup.Users.Player, join_through: Headsup.Users.PlayerSubscription, on_replace: :delete
     timestamps()
   end
 

@@ -35,7 +35,10 @@ defmodule Headsup.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_subscription!(id), do: Repo.get!(Subscription, id)
+  def get_subscription!(id) do
+    Repo.get!(Subscription, id)
+    |> Repo.preload(:players)
+  end
 
   @doc """
   Creates a subscription.
@@ -74,9 +77,12 @@ defmodule Headsup.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_subscription(%Subscription{} = subscription, attrs) do
-    subscription
-    |> Subscription.changeset(attrs)
+  def set_players_for_subscription(%Subscription{} = subscription, attrs) do
+    player_ids = attrs["players"] |> Enum.map(&String.to_integer/1)
+    players = Repo.all(from(p in Headsup.Users.Player, where: p.id in ^player_ids))
+    get_subscription!(IO.inspect(subscription).id)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:players, players)
     |> Repo.update()
   end
 
