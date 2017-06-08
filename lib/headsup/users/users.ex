@@ -127,7 +127,7 @@ defmodule Headsup.Users do
 
   """
   def list_players do
-    Repo.all(Player)
+    Repo.all(from(p in Player, order_by: :name))
   end
 
   @doc """
