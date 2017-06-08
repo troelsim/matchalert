@@ -1,6 +1,4 @@
-<h2>New Subscription</h2>
+<h3 class="brand">Yes please, email me when my favourite tennis players play</h3>
 
-<%= render "form.html", changeset: @changeset,
+<%= render "signup_form.html", changeset: @changeset,
                         action: subscription_path(@conn, :create), players: @players %>
-
-<span><%= link "Back", to: subscription_path(@conn, :index) %></span>

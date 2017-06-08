@@ -1,9 +1,10 @@
-<h2>Edit Subscription</h2>
+<h3><%= @subscription.email %></h3>
+<h3 class="brand">Change favourite players  </h3>
 
-<%= render "form.html", changeset: @changeset,
+<%= render "update_form.html", changeset: @changeset,
                         action: subscription_path(@conn, :update, @subscription),
                         players: @players %>
-
-<div id="playerSelector"></div>
-
-<span><%= link "Back", to: subscription_path(@conn, :index) %></span>
+<h3 class="brand">Or unsubscribe</h3>
+<%= render "unsubscribe_form.html", changeset: @changeset,
+                        action: subscription_path(@conn, :delete, @subscription.uuid),
+                        players: @players %>

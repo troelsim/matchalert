@@ -20,13 +20,21 @@ defmodule Headsup.Web.SubscriptionController do
         IO.puts("OK")
         IO.inspect(subscription)
         conn
-        |> put_flash(:info, "Email address verified successfully.")
-        |> redirect(to: subscription_path(conn, :show, subscription))
+        |> redirect(to: subscription_path(conn, :thanks))
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.puts("ERROR")
         render(conn, "new.html", changeset: changeset)
     end
     response
+  end
+
+  def thanks(conn, %{}) do
+    render(conn, "thanks.html")
+  end
+
+  def players(conn, %{"uuid" => uuid}) do
+    subscription = Users.get_subscription!(uuid)
+    render(conn, "players.json", players: subscription.players)
   end
 
   def verify(conn, %{"uuid" => uuid}) do
@@ -47,11 +55,18 @@ defmodule Headsup.Web.SubscriptionController do
     render(conn, "show.html", subscription: subscription)
   end
 
-  def edit(conn, %{"id" => id}) do
-    subscription = Users.get_subscription!(id)
-    changeset = Users.change_subscription(subscription)
-    players = Users.list_players()
-    render(conn, "edit.html", subscription: subscription, changeset: changeset, players: players)
+  def edit(conn, %{"uuid" => uuid}) do
+    subscription = Users.get_subscription!(uuid)
+    case Users.verify_email(uuid) do
+      {:ok, subscription} ->
+        changeset = Users.change_subscription(subscription)
+        players = Users.list_players()
+        conn
+        |> put_flash(:info, "Yay, your subscription has been activated")
+        |> render("edit.html", subscription: subscription, changeset: changeset, players: players)
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", changeset: changeset)
+    end
   end
 
   def update(conn, %{"id" => id, "subscription" => subscription_params}) do
@@ -68,12 +83,12 @@ defmodule Headsup.Web.SubscriptionController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    subscription = Users.get_subscription!(id)
+  def delete(conn, %{"uuid" => uuid}) do
+    subscription = Users.get_subscription!(uuid)
     {:ok, _subscription} = Users.delete_subscription(subscription)
 
     conn
     |> put_flash(:info, "Subscription deleted successfully.")
-    |> redirect(to: subscription_path(conn, :index))
+    |> redirect(to: subscription_path(conn, :new))
   end
 end

@@ -1,1 +1,71 @@
-/* This file is for your main application css. */
+h1, h1.brand {
+  font-family: 'Bree Serif', serif;
+  font-size: 50px;
+}
+.brand {
+  font-family: 'Bree Serif', serif;
+}
+
+body {
+  font-size: 18px;
+}
+
+span.brand {
+  font-size: 20px;
+  line-height: 1.42857143;
+  display: block;
+  padding-top: 7px;
+  height: 42px;
+  vertical-align: middle;
+  color: #888;
+}
+
+label.control-label {
+  font-family: 'Bree Serif', serif;
+  font-size: 20px;
+}
+
+.form-control {
+  padding: 20px;
+  font-size: 24px;
+  height: 48px;
+}
+
+.ball {
+  color: #C6ED2C;
+}
+
+.btn-primary {
+  background-color: #C6ED2C;
+  border-color: #C6ED2C;
+  color: black;
+  font-family: 'Bree Serif', serif;
+  font-size: 20px;
+}
+
+.btn-primary:hover {
+  background-color: #C6ED2C;
+  border-color: #C6ED2C
+}
+/*
+.Select-control {
+  height: 48px;
+}
+
+.Select-input {
+  height: 48px;
+  margin-left: 20px;
+  padding-right: 20px;
+  vertical-align: middle;
+  font-size: 24px;
+}
+
+.Select-placeholder {
+  padding: 0 20px;
+  vertical-align: middle;
+}
+
+.Select-clear, .Select-placeholder {
+  font-size: 24px;
+}
+*/

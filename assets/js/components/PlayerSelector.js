@@ -7,7 +7,7 @@ class PlayerSelector extends React.Component {
     fetch('http://' + document.location.host + '/players')
     .then(res => {
       res.json().then(data => {
-        const players = data.players.map(player => ({value: player, label: player}));
+        const players = data.players.map(player => ({value: player.id, label: player.name}));
         this.setState({options: players});
       });
     });
@@ -31,7 +31,8 @@ class PlayerSelector extends React.Component {
       multi={true}
       value={this.state.value}
       options={this.state.options}
-      name="tossi"
+      name="subscription[players][]"
+      placeholder="Favourite players ..."
       onChange={(value) => this.setState({value})}
     />;
   }

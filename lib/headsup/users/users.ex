@@ -35,8 +35,8 @@ defmodule Headsup.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_subscription!(id) do
-    Repo.get!(Subscription, id)
+  def get_subscription!(uuid) do
+    Repo.get_by!(Subscription, uuid: uuid)
     |> Repo.preload(:players)
   end
 
@@ -53,8 +53,11 @@ defmodule Headsup.Users do
 
   """
   def create_subscription(attrs \\ %{}) do
+    player_ids = attrs["players"] |> Enum.map(&String.to_integer/1)
+    players = Repo.all(from(p in Headsup.Users.Player, where: p.id in ^player_ids))
     %Subscription{}
     |> Subscription.changeset(IO.inspect(Map.merge(attrs, %{"uuid" => UUID.uuid1()})))
+    |> Ecto.Changeset.put_assoc(:players, players)
     |> Repo.insert()
   end
 

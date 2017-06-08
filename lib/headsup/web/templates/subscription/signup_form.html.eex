@@ -1,0 +1,27 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= text_input f, :email, class: "form-control", placeholder: "Email address" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <div id="playerSelector"></div>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Subscribe", class: "btn btn-primary btn-block" %>
+    <span class="brand">
+      <ul>
+        <li>You'll receive an e-mail notification when a match starts</li>
+        <li>You'll receive the result as soon as it ends</li>
+        <li>You can unsubscribe at any time.</li>
+      </ul>
+    </span>
+  </div>
+<% end %>

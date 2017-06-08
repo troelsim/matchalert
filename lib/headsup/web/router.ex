@@ -16,12 +16,15 @@ defmodule Headsup.Web.Router do
   scope "/", Headsup.Web do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", SubscriptionController, :new
+    resources "/players", PlayerController
+    get "/thanks", SubscriptionController, :thanks
+    get "/:uuid", SubscriptionController, :edit
+    put "/:uuid/delete", SubscriptionController, :delete
+    get "/:uuid/players", SubscriptionController, :players
 
     resources "/subscriptions", SubscriptionController
     resources "/player_subscriptions", PlayerSubscriptionController
-    resources "/players", PlayerController
-    get "/:uuid", SubscriptionController, :verify
 
   end
 
