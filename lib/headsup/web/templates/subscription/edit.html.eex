@@ -4,4 +4,6 @@
                         action: subscription_path(@conn, :update, @subscription),
                         players: @players %>
 
+<div id="playerSelector"></div>
+
 <span><%= link "Back", to: subscription_path(@conn, :index) %></span>
