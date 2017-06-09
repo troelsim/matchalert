@@ -69,8 +69,6 @@ defmodule Headsup.Web.SubscriptionController do
         |> render("edit.html", subscription: subscription, changeset: changeset, players: players)
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
-      nil ->
-        raise Phoenix.Router.NoRouteError, [conn: conn]
     end
   end
 
@@ -97,5 +95,10 @@ defmodule Headsup.Web.SubscriptionController do
     conn
     |> put_flash(:info, "Subscription deleted successfully.")
     |> redirect(to: subscription_path(conn, :new))
+  end
+
+  def live_matches(conn, _) do
+    matches = IO.inspect(GenServer.call(Matches.Status, {:get_matches}))
+    render(conn, "matches.json", matches: matches)
   end
 end

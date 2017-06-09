@@ -21,6 +21,12 @@ defmodule Headsup.Users do
     Repo.all(Subscription)
   end
 
+  def list_subscriptions_for_player(player) do
+    player
+    |> Repo.preload(:subscriptions)
+    |> Map.get(:subscriptions)
+  end
+
   @doc """
   Gets a single subscription.
 

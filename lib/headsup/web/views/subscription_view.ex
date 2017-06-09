@@ -5,4 +5,8 @@ defmodule Headsup.Web.SubscriptionView do
       players: players |> Enum.map(&(%{id: &1.id, name: &1.name}))
     }
   end
+
+  def render("matches.json", %{matches: matches}) do
+    %{matches: matches}
+  end
 end

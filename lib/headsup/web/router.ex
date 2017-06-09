@@ -20,6 +20,7 @@ defmodule Headsup.Web.Router do
     post "/", SubscriptionController, :create
     resources "/players", PlayerController
     get "/thanks", SubscriptionController, :thanks
+    get "/matches", SubscriptionController, :live_matches
     get "/:uuid", SubscriptionController, :edit
     put "/:uuid", SubscriptionController, :update
     put "/:uuid/delete", SubscriptionController, :delete

@@ -10,6 +10,7 @@ defmodule Matches.Change do
   end
   def handle_match_change({"Not started", "In progress", match}) do
     IO.puts "Match starting:"
+    Notifications.Exchange.send_start_emails(match)
     print_match_details(match)
   end
   def handle_match_change({"In progress", "Finished", match}) do

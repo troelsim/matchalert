@@ -21,7 +21,7 @@ defmodule Matches.Getter do
 
   def score_url() do score_url(DateTime.utc_now) end
   def score_url(dt) do
-    "http://ace.Matches.com/pulse/#{date_string(dt)}_livescores_new.json?v=#{time_string(dt)}"
+    "http://ace.tennis.com/pulse/#{date_string(dt)}_livescores_new.json?v=#{time_string(dt)}"
   end
 
   def get_live_scores(http_library \\ HTTPoison) do
