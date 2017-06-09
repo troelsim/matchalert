@@ -15,6 +15,7 @@ defmodule Headsup.Web.SubscriptionController do
   end
 
   def create(conn, %{"subscription" => subscription_params}) do
+    players = Users.list_players()
     response = case Users.create_subscription(subscription_params) do
       {:ok, subscription} ->
         IO.puts("OK")
@@ -23,7 +24,7 @@ defmodule Headsup.Web.SubscriptionController do
         |> redirect(to: subscription_path(conn, :thanks))
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.puts("ERROR")
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, players: players)
     end
     response
   end
@@ -57,28 +58,33 @@ defmodule Headsup.Web.SubscriptionController do
 
   def edit(conn, %{"uuid" => uuid}) do
     subscription = Users.get_subscription!(uuid)
+    verified = subscription.verified
     case Users.verify_email(uuid) do
       {:ok, subscription} ->
         changeset = Users.change_subscription(subscription)
         players = Users.list_players()
-        conn
-        |> put_flash(:info, "Yay, your subscription has been activated")
+        case verified do
+          true -> conn
+          _ -> conn |> put_flash(:info, "Yay, your subscription has been activated")
+        end
         |> render("edit.html", subscription: subscription, changeset: changeset, players: players)
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
-  def update(conn, %{"id" => id, "subscription" => subscription_params}) do
-    subscription = Users.get_subscription!(id)
+  def update(conn, %{"uuid" => uuid, "subscription" => subscription_params}) do
+    subscription = Users.get_subscription!(uuid)
     players = Users.list_players()
 
     case Users.set_players_for_subscription(subscription, subscription_params) do
       {:ok, subscription} ->
+        IO.puts("OK")
         conn
         |> put_flash(:info, "Subscription updated successfully.")
-        |> redirect(to: subscription_path(conn, :show, subscription))
+        |> redirect(to: subscription_path(conn, :edit, subscription.uuid))
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.puts("ROOR")
         render(conn, "edit.html", subscription: subscription, changeset: changeset, players: players)
     end
   end

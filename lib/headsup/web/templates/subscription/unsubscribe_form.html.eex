@@ -5,6 +5,6 @@
     </div>
   <% end %>
   <div class="form-group">
-    <%= submit "Unsubscribe", class: "btn btn-primary btn-block" %>
+    <%= submit "Unsubscribe", class: "btn btn-deafult btn-block" %>
   </div>
 <% end %>

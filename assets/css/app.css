@@ -35,12 +35,15 @@ label.control-label {
   color: #C6ED2C;
 }
 
+.btn {
+  font-family: 'Bree Serif', serif;
+  font-size: 20px;
+}
+
 .btn-primary {
   background-color: #C6ED2C;
   border-color: #C6ED2C;
   color: black;
-  font-family: 'Bree Serif', serif;
-  font-size: 20px;
 }
 
 .btn-primary:hover {

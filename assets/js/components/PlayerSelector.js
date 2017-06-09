@@ -1,14 +1,24 @@
 import React from 'react';
 import Select from 'react-select';
-// import fetch from 'whatwg-fetch';
+import 'whatwg-fetch';
 
 class PlayerSelector extends React.Component {
   loadOptions() {
-    fetch('http://' + document.location.host + '/players')
+    return fetch('http://' + document.location.host + '/players')
     .then(res => {
-      res.json().then(data => {
+      return res.json().then(data => {
         const players = data.players.map(player => ({value: player.id, label: player.name}));
         this.setState({options: players});
+      });
+    });
+  }
+
+  loadPlayers() {
+    return fetch(document.location.href.replace(/\/$/, "") + '/players')
+    .then(res => {
+      return res.json().then(data => {
+        const players = data.players.map(player => ({value: player.id, label: player.name}));
+        this.setState({value: players});
       });
     });
   }
@@ -22,7 +32,11 @@ class PlayerSelector extends React.Component {
   }
 
   componentWillMount() {
-    this.loadOptions();
+    this.loadOptions().then(() => {
+      if (document.location.pathname != "/"){
+        this.loadPlayers();
+      }
+    });
   }
 
 

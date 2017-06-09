@@ -11,7 +11,7 @@ config :headsup,
 
 # Configures the endpoint
 config :headsup, Headsup.Web.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "192.168.1.36"],
   secret_key_base: "bj6fcjl2jTtTGjdiT2RmUiRzVoLYnJeqb82YciKAr0+e9/M4ctVc2NoR+5a3v7nt",
   render_errors: [view: Headsup.Web.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Headsup.PubSub,

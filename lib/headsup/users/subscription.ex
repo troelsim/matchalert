@@ -9,7 +9,7 @@ defmodule Headsup.Users.Subscription do
     field :uuid, :string
     field :verified, :boolean
 
-    many_to_many :players, Headsup.Users.Player, join_through: Headsup.Users.PlayerSubscription, on_replace: :delete
+    many_to_many :players, Headsup.Users.Player, join_through: Headsup.Users.PlayerSubscription, on_replace: :delete, on_delete: :delete_all
     timestamps()
   end
 

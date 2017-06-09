@@ -52,12 +52,21 @@ defmodule Headsup.Users do
       {:error, %Ecto.Changeset{}}
 
   """
+  def validate_players_chosen(changeset, field, options \\ []) do
+    IO.puts("VALIDATION")
+    Ecto.Changeset.validate_change(changeset, :players, fn
+      :players, [] -> [players: "You must choose at least one player"];
+      :players, _ -> []
+    end)
+  end
+
   def create_subscription(attrs \\ %{}) do
-    player_ids = attrs["players"] |> Enum.map(&String.to_integer/1)
+    player_ids = (attrs["players"] || []) |> Enum.map(&String.to_integer/1)
     players = Repo.all(from(p in Headsup.Users.Player, where: p.id in ^player_ids))
     %Subscription{}
     |> Subscription.changeset(IO.inspect(Map.merge(attrs, %{"uuid" => UUID.uuid1()})))
     |> Ecto.Changeset.put_assoc(:players, players)
+    |> validate_players_chosen(:players)
     |> Repo.insert()
   end
 
@@ -67,6 +76,7 @@ defmodule Headsup.Users do
     |> Repo.update()
     |> IO.inspect
   end
+
 
   @doc """
   Updates a subscription.
@@ -83,7 +93,7 @@ defmodule Headsup.Users do
   def set_players_for_subscription(%Subscription{} = subscription, attrs) do
     player_ids = attrs["players"] |> Enum.map(&String.to_integer/1)
     players = Repo.all(from(p in Headsup.Users.Player, where: p.id in ^player_ids))
-    get_subscription!(IO.inspect(subscription).id)
+    get_subscription!(subscription.uuid)
     |> Ecto.Changeset.change()
     |> Ecto.Changeset.put_assoc(:players, players)
     |> Repo.update()
