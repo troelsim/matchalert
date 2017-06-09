@@ -20,7 +20,7 @@
           <ul class="nav nav-pills pull-right">
           </ul>
         </nav>
-        <h1 class="brand"><span class="ball">Match</span>alert</h1>
+        <h1 class="brand"><a href="/"><span class="ball">Match</span>alert</a></h1>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

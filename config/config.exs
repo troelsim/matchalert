@@ -23,7 +23,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 # SMTP
-config :headsup, Headsup.Mailer,
+config :headsup, Notifications.Mailer,
   adapter: Bamboo.SMTPAdapter,
   port: 587,
   server: "smtp.sendgrid.net",

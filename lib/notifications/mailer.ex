@@ -1,3 +1,3 @@
-defmodule Headsup.Mailer do
+defmodule Notifications.Mailer do
   use Bamboo.Mailer, otp_app: :headsup
 end

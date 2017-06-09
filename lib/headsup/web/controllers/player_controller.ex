@@ -5,7 +5,7 @@ defmodule Headsup.Web.PlayerController do
 
   def index(conn, _params) do
     players = Users.list_players()
-    render(conn, "index.json", players: IO.inspect(players))
+    render(conn, "index.json", players: players)
   end
 
   def new(conn, _params) do

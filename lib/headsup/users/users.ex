@@ -40,6 +40,12 @@ defmodule Headsup.Users do
     |> Repo.preload(:players)
   end
 
+  def get_subscription_by_email!(email) do
+    Repo.get_by!(Subscription, email: email)
+    |> Repo.preload(:players)
+  end
+
+
   @doc """
   Creates a subscription.
 
@@ -61,29 +67,33 @@ defmodule Headsup.Users do
   end
 
   def send_activation_email({:ok, subscription}) do
-      Headsup.Email.confirmation_email(subscription)
-      |> Headsup.Mailer.deliver_now()
+      Notifications.Email.confirmation_email(subscription)
+      |> Notifications.Mailer.deliver_later()
       {:ok, subscription}
   end
-  def send_activation_email(other) do other end
+  def send_activation_email({:error, %{changes: %{email: email}, errors: [email: _]}} = args) do
+    subscription = get_subscription_by_email!(email)
+    Notifications.Email.reminder_email(subscription)
+    args
+  end
+  def send_activation_email(other) do IO.inspect(other) end
 
   def create_subscription(attrs \\ %{}) do
     player_ids = (attrs["players"] || []) |> Enum.map(&String.to_integer/1)
     players = Repo.all(from(p in Headsup.Users.Player, where: p.id in ^player_ids))
     %Subscription{}
-    |> Subscription.changeset(IO.inspect(Map.merge(attrs, %{"uuid" => UUID.uuid1()})))
+    |> Subscription.changeset(Map.merge(attrs, %{"uuid" => UUID.uuid1()}))
     |> Ecto.Changeset.put_assoc(:players, players)
     |> validate_players_chosen(:players)
     |> Ecto.Changeset.unique_constraint(:email)
     |> Repo.insert()
-    |> send_activation_email
+    |> send_activation_email()
   end
 
   def verify_email(uuid) do
-    Repo.get_by(Subscription, uuid: uuid)
+    Repo.get_by!(Subscription, uuid: uuid)
     |> Ecto.Changeset.cast(%{"uuid" => uuid, "verified" => true}, [:uuid, :verified])
     |> Repo.update()
-    |> IO.inspect
   end
 
 

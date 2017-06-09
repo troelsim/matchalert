@@ -6,6 +6,11 @@ h1, h1.brand {
   font-family: 'Bree Serif', serif;
 }
 
+h1.brand a, h1.brand a:hover {
+  color: black;
+  text-decoration: none
+}
+
 body {
   font-size: 18px;
 }

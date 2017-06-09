@@ -57,10 +57,9 @@ defmodule Headsup.Web.SubscriptionController do
   end
 
   def edit(conn, %{"uuid" => uuid}) do
-    subscription = Users.get_subscription!(uuid)
-    verified = subscription.verified
     case Users.verify_email(uuid) do
       {:ok, subscription} ->
+        verified = subscription.verified
         changeset = Users.change_subscription(subscription)
         players = Users.list_players()
         case verified do
@@ -70,6 +69,8 @@ defmodule Headsup.Web.SubscriptionController do
         |> render("edit.html", subscription: subscription, changeset: changeset, players: players)
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
+      nil ->
+        raise Phoenix.Router.NoRouteError, [conn: conn]
     end
   end
 

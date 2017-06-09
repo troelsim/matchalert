@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :headsup, Headsup.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "***REMOVED***",
+  password: "holahola",
   database: "headsup_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
