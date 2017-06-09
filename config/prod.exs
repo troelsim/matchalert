@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :headsup, Headsup.Web.Endpoint,
   on_init: {Headsup.Web.Endpoint, :load_from_system_env, []},
-  url: [host: "secure-harbor-16049", port: 80, scheme: "http"],
+  url: [host: "www.matchalert.net", port: 80, scheme: "http"],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 

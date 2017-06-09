@@ -32,6 +32,7 @@ config :headsup, Headsup.Web.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :headsup, Headsup.Web.Endpoint,
+  url: [host: "localhost", port: 4000, scheme: "http"],
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},

@@ -65,7 +65,7 @@ defmodule Headsup.Users do
       |> Headsup.Mailer.deliver_now()
       {:ok, subscription}
   end
-  def send_activation_mail(other) do other end
+  def send_activation_email(other) do other end
 
   def create_subscription(attrs \\ %{}) do
     player_ids = (attrs["players"] || []) |> Enum.map(&String.to_integer/1)
@@ -74,6 +74,7 @@ defmodule Headsup.Users do
     |> Subscription.changeset(IO.inspect(Map.merge(attrs, %{"uuid" => UUID.uuid1()})))
     |> Ecto.Changeset.put_assoc(:players, players)
     |> validate_players_chosen(:players)
+    |> Ecto.Changeset.unique_constraint(:email)
     |> Repo.insert()
     |> send_activation_email
   end
