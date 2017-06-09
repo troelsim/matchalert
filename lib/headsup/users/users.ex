@@ -7,6 +7,8 @@ defmodule Headsup.Users do
   alias Headsup.Repo
 
   alias Headsup.Users.Subscription
+  alias Headsup.Users.Player
+  alias Headsup.Users.PlayerSubscription
 
   @doc """
   Returns the list of subscriptions.
@@ -21,12 +23,17 @@ defmodule Headsup.Users do
     Repo.all(Subscription)
   end
 
-  def list_subscriptions_for_player(player) do
-    player
-    |> Repo.preload(:subscriptions)
-    |> Map.get(:subscriptions)
+  def list_subscriptions_for_match(match) do
+    names = match["players"] |> Enum.map(&(&1["name"]))
+    players = from(
+      ps in PlayerSubscription,
+      join: p in Player, on: p.id == ps.player_id,
+      inner_join: s in Subscription, on: s.id == ps.subscription_id,
+      select: s,
+      distinct: s.id,
+      where: p.name in ^names
+    ) |> Repo.all
   end
-
   @doc """
   Gets a single subscription.
 
