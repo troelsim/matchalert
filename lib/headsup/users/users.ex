@@ -60,6 +60,13 @@ defmodule Headsup.Users do
     end)
   end
 
+  def send_activation_email({:ok, subscription}) do
+      Headsup.Email.confirmation_email(subscription)
+      |> Headsup.Mailer.deliver_now()
+      {:ok, subscription}
+  end
+  def send_activation_mail(other) do other end
+
   def create_subscription(attrs \\ %{}) do
     player_ids = (attrs["players"] || []) |> Enum.map(&String.to_integer/1)
     players = Repo.all(from(p in Headsup.Users.Player, where: p.id in ^player_ids))
@@ -68,6 +75,7 @@ defmodule Headsup.Users do
     |> Ecto.Changeset.put_assoc(:players, players)
     |> validate_players_chosen(:players)
     |> Repo.insert()
+    |> send_activation_email
   end
 
   def verify_email(uuid) do
