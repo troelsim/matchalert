@@ -46,7 +46,7 @@ defmodule Notifications.Email do
   def match_start_email(match, subscription) do
     new_email()
     |> to(subscription.email)
-    |> from("admin@matchalert.net")
+    |> from("Matchalert <admin@matchalert.net>")
     |> subject(players_string(match))
     |> text_body("#{players_string(match)} just started at the #{match["round"] |> String.downcase} of the #{match["tournament"]}")
   end

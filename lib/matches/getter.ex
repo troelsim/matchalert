@@ -25,16 +25,18 @@ defmodule Matches.Getter do
   end
 
   def get_live_scores(http_library \\ HTTPoison) do
-    {:ok, response} = http_library.get(score_url(), [], options: [recv_timeout: 10000])
-    response.body |> Poison.decode!
+    case http_library.get(score_url(), [], options: [recv_timeout: 10000]) do
+      {:ok, response} -> {:ok, response.body |> Poison.decode!}
+      other -> other
+    end
   end
 
-  def events(scores) do
-    scores
+  def events({:ok, scores}) do
+    {:ok, scores
     |> Map.get("tournaments")
     |> Enum.flat_map(fn tournament ->
       tournament["events"] |> Enum.map(&Map.put(&1, "tournament", tournament["name"]))
-    end)
+    end)}
   end
 
   def get_live_events(http_library \\ HTTPoison) do

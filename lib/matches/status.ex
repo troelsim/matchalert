@@ -168,13 +168,14 @@ defmodule Matches.Status do
   end
 
   def handle_cast(:poll, events) do
-    new_events = Matches.Getter.get_live_events()
-    {:reply, return_value, new_state} = handle_call({:get_changes, new_events}, self(), events)
-    Matches.Change.handle_match_changes(return_value)
-    if return_value != [] do
-#      IO.inspect(return_value)
-    end
     poll()
-    {:noreply, new_state}
+    case Matches.Getter.get_live_events() do
+      {:ok, new_events} ->
+        {:reply, return_value, new_state} = handle_call({:get_changes, new_events}, self(), events)
+        Matches.Change.handle_match_changes(return_value)
+        {:noreply, new_state}
+      {:error, _} ->
+        {:noreply, events}
+    end
   end
 end
