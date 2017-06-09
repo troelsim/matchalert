@@ -38,6 +38,7 @@ defmodule Matches.Getter do
       tournament["events"] |> Enum.map(&Map.put(&1, "tournament", tournament["name"]))
     end)}
   end
+  def events(other) do other end
 
   def get_live_events(http_library \\ HTTPoison) do
     get_live_scores(http_library) |> events
