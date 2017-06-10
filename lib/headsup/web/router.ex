@@ -25,10 +25,6 @@ defmodule Headsup.Web.Router do
     put "/:uuid", SubscriptionController, :update
     put "/:uuid/delete", SubscriptionController, :delete
     get "/:uuid/players", SubscriptionController, :players
-
-    #resources "/subscriptions", SubscriptionController
-    resources "/player_subscriptions", PlayerSubscriptionController
-
   end
 
   # Other scopes may use custom stacks.
