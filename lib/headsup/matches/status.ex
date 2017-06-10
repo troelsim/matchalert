@@ -1,8 +1,8 @@
-defmodule Matches.Status do
+defmodule Headsup.Matches.Status do
   use GenServer
 
   def start_link(_) do
-    GenServer.start_link(__MODULE__, :ok, name: Matches.Status)
+    GenServer.start_link(__MODULE__, :ok, name: Headsup.Matches.Status)
   end
 
   def init(:ok) do
@@ -19,11 +19,11 @@ defmodule Matches.Status do
 
   ## Examples
 
-    iex> Matches.Status.is_running(%{"status" => "In progress"})
+    iex> is_running(%{"status" => "In progress"})
     true
-    iex> Matches.Status.is_running(%{"status" => "In pingpong"})
+    iex> is_running(%{"status" => "In pingpong"})
     false
-    iex> Matches.Status.is_running(%{})
+    iex> is_running(%{})
     false
   """
   def is_running(event) do
@@ -39,7 +39,7 @@ defmodule Matches.Status do
 
   ## Examples
 
-    iex> Matches.Status.started_matches([
+    iex> started_matches([
     ...>   %{"id" => "123", "status" => "In progress"},
     ...>   %{"id" => "234", "status" => "In progress"}
     ...> ], [
@@ -48,7 +48,7 @@ defmodule Matches.Status do
     ...> ])
     [%{"id" => "123", "status" => "In progress"}]
 
-    iex> Matches.Status.started_matches([
+    iex> started_matches([
     ...>   %{"id" => "123", "status" => "In progress"},
     ...> ], [])
     [%{"id" => "123", "status" => "In progress"}]
@@ -69,7 +69,7 @@ defmodule Matches.Status do
 
   ## Examples
 
-    iex> Matches.Status.finished_matches([
+    iex> finished_matches([
     ...>   %{"id" => "123", "status" => "Finished"},
     ...>   %{"id" => "234", "status" => "In progress"}
     ...> ], [
@@ -94,13 +94,13 @@ defmodule Matches.Status do
 
   ## Examples
 
-    iex> Matches.Status.get_status([%{"id" => 1, "status" => "something"}], 1)
+    iex> get_status([%{"id" => 1, "status" => "something"}], 1)
     "something"
 
-    iex> Matches.Status.get_status(nil)
+    iex> get_status(nil)
     nil
 
-    iex> Matches.Status.get_status(%{"status" => "hello"})
+    iex> get_status(%{"status" => "hello"})
     "hello"
   """
   def get_status(events, id) when is_list(events) do
@@ -116,12 +116,12 @@ defmodule Matches.Status do
   end
 
   @doc """
-  Get matches with changed status from two lists
+  Get Headsup.Matches with changed status from two lists
 
 
   ## Examples
 
-    iex> Matches.Status.event_changes([
+    iex> event_changes([
     ...>   %{"id" => 1, "status" => "something"},
     ...>   %{"id" => 2, "status" => "something else"}
     ...> ], [
@@ -169,10 +169,10 @@ defmodule Matches.Status do
 
   def handle_cast(:poll, events) do
     poll()
-    case Matches.Getter.get_live_events() do
+    case Headsup.Matches.Getter.get_live_events() do
       {:ok, new_events} ->
         {:reply, return_value, new_state} = handle_call({:get_changes, new_events}, self(), events)
-        Matches.Change.handle_match_changes(return_value)
+        Headsup.Matches.Change.handle_match_changes(return_value)
         {:noreply, new_state}
       {:error, _} ->
         {:noreply, events}

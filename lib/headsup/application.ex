@@ -14,7 +14,7 @@ defmodule Headsup.Application do
       supervisor(Headsup.Web.Endpoint, []),
       # Start your own worker by calling: Headsup.Worker.start_link(arg1, arg2, arg3)
       # worker(Headsup.Worker, [arg1, arg2, arg3]),
-      supervisor(Matches.StatusSupervisor, []),
+      supervisor(Headsup.Matches.StatusSupervisor, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

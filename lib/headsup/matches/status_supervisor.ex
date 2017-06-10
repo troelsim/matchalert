@@ -1,4 +1,4 @@
-defmodule Matches.StatusSupervisor do
+defmodule Headsup.Matches.StatusSupervisor do
   use Supervisor
 
   def start_link do
@@ -7,7 +7,7 @@ defmodule Matches.StatusSupervisor do
 
   def init(:ok) do
     children = [
-      worker(Matches.Status, [Matches.Status])
+      worker(Headsup.Matches.Status, [Headsup.Matches.Status])
     ]
     supervise(children, strategy: :one_for_one)
   end

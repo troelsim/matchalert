@@ -1,4 +1,4 @@
-defmodule Matches.Change do
+defmodule Headsup.Matches.Change do
   def handle_match_changes(changes) do
     Enum.map(changes, &handle_match_change/1)
   end
