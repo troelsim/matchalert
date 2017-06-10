@@ -1,6 +1,0 @@
-<h2>Edit Player subscription</h2>
-
-<%= render "form.html", changeset: @changeset,
-                        action: player_subscription_path(@conn, :update, @player_subscription) %>
-
-<span><%= link "Back", to: player_subscription_path(@conn, :index) %></span>

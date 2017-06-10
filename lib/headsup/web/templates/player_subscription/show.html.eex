@@ -1,8 +1,0 @@
-<h2>Show Player subscription</h2>
-
-<ul>
-
-</ul>
-
-<span><%= link "Edit", to: player_subscription_path(@conn, :edit, @player_subscription) %></span>
-<span><%= link "Back", to: player_subscription_path(@conn, :index) %></span>
