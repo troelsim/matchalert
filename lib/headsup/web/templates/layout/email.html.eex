@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+    <%= render @view_module, @view_template, assigns %>
+    <small>You can unsubscribe or change your player preferences at any time by <a href="<%= @subscription_link %>">clicking here</a>, or going to <%= @subscription_link %>.</small>
+  </body>
+</html>

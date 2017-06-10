@@ -1,3 +1,3 @@
-defmodule Headsup.EmailView do
+defmodule Headsup.Web.EmailView do
   use Headsup.Web, :view
 end

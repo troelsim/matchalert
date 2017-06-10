@@ -1,0 +1,4 @@
+Welcome to matchalert.net!
+
+Go to <%= @subscription_link %> to activate your account.
+This is also your settings page where you can change which players to follow, or unsubscribe entirely

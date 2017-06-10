@@ -38,7 +38,8 @@ defmodule Headsup.Mixfile do
      {:cowboy, "~> 1.0"},
      {:bamboo, "~> 0.7"},
      {:bamboo_smtp, "~> 1.2.1"},
-     {:uuid, "~> 1.1"}
+     {:uuid, "~> 1.1"},
+     {:slugger, "~> 0.2"}
    ]
   end
 

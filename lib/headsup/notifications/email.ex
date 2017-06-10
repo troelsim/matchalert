@@ -1,5 +1,5 @@
 defmodule Notifications.Email do
-  import Bamboo.Email
+  use Bamboo.Phoenix, view: Headsup.Web.EmailView
 
   def subscription_uuid_url(subscription) do
     url = Application.get_env(:headsup, Headsup.Web.Endpoint)[:url]
@@ -13,7 +13,11 @@ defmodule Notifications.Email do
     |> to(subscription.email)
     |> from("Matchalert <admin@matchalert.net>")
     |> subject("Required: Confirm your email address")
-    |> text_body("Go to #{subscription_uuid_url(subscription)} to activate your email address")
+    |> put_text_layout({Headsup.Web.LayoutView, "email.text"})
+    |> put_html_layout({Headsup.Web.LayoutView, "email.html"})
+    |> render("confirmation.text", subscription_link: subscription_uuid_url(subscription))
+    |> render("confirmation.html", subscription_link: subscription_uuid_url(subscription))
+#    |> text_body("Go to #{subscription_uuid_url(subscription)} to activate your email address")
   end
 
   def reminder_email(subscription) do
