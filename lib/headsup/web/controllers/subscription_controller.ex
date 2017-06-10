@@ -57,14 +57,14 @@ defmodule Headsup.Web.SubscriptionController do
   end
 
   def edit(conn, %{"uuid" => uuid}) do
-    %{verified: verified} = Users.get_subscription!(uuid)
     case Users.verify_email(uuid) do
       {:ok, subscription} ->
+        verified = subscription.verified
         changeset = Users.change_subscription(subscription)
         players = Users.list_players()
         case verified do
           true -> conn
-          _ -> conn |> put_flash(:info, "Yay, your subscription has been activated. You'll now receive match alerts for your favourite tennis players.")
+          _ -> conn |> put_flash(:info, "Yay, your subscription has been activated")
         end
         |> render("edit.html", subscription: subscription, changeset: changeset, players: players)
       {:error, %Ecto.Changeset{} = changeset} ->
