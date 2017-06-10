@@ -24,14 +24,14 @@ defmodule Headsup.Users do
   end
 
   def list_subscriptions_for_match(match) do
-    names = match["players"] |> Enum.map(&(&1["name"]))
-    players = from(
+    slugs = match["players"] |> Enum.map(&(&1["name"]) |> Slugger.slugify_downcase())
+    from(
       ps in PlayerSubscription,
       join: p in Player, on: p.id == ps.player_id,
       inner_join: s in Subscription, on: s.id == ps.subscription_id,
       select: s,
       distinct: s.id,
-      where: p.name in ^names and s.verified == true
+      where: p.slug in ^slugs and s.verified == true
     ) |> Repo.all
   end
   @doc """
@@ -71,7 +71,7 @@ defmodule Headsup.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def validate_players_chosen(changeset, field, options \\ []) do
+  def validate_players_chosen(changeset, _field, _options \\ []) do
     IO.puts("VALIDATION")
     Ecto.Changeset.validate_change(changeset, :players, fn
       :players, [] -> [players: "You must choose at least one player"];

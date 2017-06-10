@@ -4,7 +4,6 @@ defmodule Headsup.Web.SubscriptionController do
   alias Headsup.Users
 
   def index(conn, _params) do
-    subscriptions = Users.list_subscriptions()
     render(conn, "index.html", subscriptions: [])
   end
 
