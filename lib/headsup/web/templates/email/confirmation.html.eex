@@ -1,4 +1,4 @@
-<h2>Welcome to Matchalert.net!</h2>
+<h2>Welcome to <span class="brand">Match</span>alert!</h2>
 <p><a href="<%= @subscription_link %>">Click here</a> to activate your account (or go to <%= @subscription_link %>).</p>
 <p>This is also your settings page where you can change which players to follow, or unsubscribe entirely</p>
 <p>Have fun, and don't ever miss a tennis match again!</p>

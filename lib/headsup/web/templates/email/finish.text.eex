@@ -1,0 +1,6 @@
+<%= players_string(@match) %>
+
+<%= player1(@match) %> just finished playing against <%= player2(@match) %>.
+Round: <%= @match["round"] %>
+Tournament: <%= @match["tournament"] %>
+Winner: <%= @winner["name"] %>

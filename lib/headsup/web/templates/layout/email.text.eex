@@ -2,4 +2,5 @@
 <%= render @view_module, @view_template, assigns %>
 
 
+We hope you are enjoying Matchalert. If you have any suggestions for improvement, feel free to contact us at support@matchalert.net.
 You can unsubscribe or change your player preferences at any time on <%= @subscription_link %>

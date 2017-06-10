@@ -30,6 +30,8 @@
         <%= render @view_module, @view_template, assigns %>
       </main>
 
+      <footer class="navbar-fixed-bottom" style="text-align: center">Questions or suggestions? Contact <a href="mailto:support@matchalert.net">support@matchalert.net</a></footer>
+
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>

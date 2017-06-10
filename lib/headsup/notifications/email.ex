@@ -8,16 +8,19 @@ defmodule Notifications.Email do
     "#{scheme}://#{host}#{if port == 80 do "" else ":#{port}" end}/#{subscription.uuid}"
   end
 
-  def confirmation_email(subscription) do
+  def email() do
     new_email()
-    |> to(subscription.email)
     |> from("Matchalert <admin@matchalert.net>")
-    |> subject("Required: Confirm your email address")
     |> put_text_layout({Headsup.Web.LayoutView, "email.text"})
     |> put_html_layout({Headsup.Web.LayoutView, "email.html"})
+  end
+
+  def confirmation_email(subscription) do
+    email()
+    |> to(subscription.email)
+    |> subject("Required: Confirm your email address")
     |> render("confirmation.text", subscription_link: subscription_uuid_url(subscription))
     |> render("confirmation.html", subscription_link: subscription_uuid_url(subscription))
-#    |> text_body("Go to #{subscription_uuid_url(subscription)} to activate your email address")
   end
 
   def reminder_email(subscription) do
@@ -48,11 +51,11 @@ defmodule Notifications.Email do
     }
   """
   def match_start_email(match, subscription) do
-    new_email()
+    email()
     |> to(subscription.email)
-    |> from("Matchalert <admin@matchalert.net>")
-    |> subject(players_string(match))
-    |> text_body("#{players_string(match)} just started at the #{match["round"] |> String.downcase} of the #{match["tournament"]}")
+    |> subject("#{players_string(match)} started")
+    |> render("start.text", subscription_link: subscription_uuid_url(subscription), match: match)
+    |> render("start.html", subscription_link: subscription_uuid_url(subscription), match: match)
   end
 
   @doc """
@@ -67,14 +70,10 @@ defmodule Notifications.Email do
   """
   def match_finished_email(match, subscription) do
     winner = match["players"] |> Enum.find(&(&1["is_winner"]))
-    new_email()
+    email()
     |> to(subscription.email)
-    |> from("Matchalert <admin@matchalert.net>")
-    |> subject(players_string(match))
-    |> text_body("""
-    #{players_string(match)} just finished at the #{match["round"] |> String.downcase} of the #{match["tournament"]}
-    #{winner["name"]} won.
-    """
-    )
+    |> subject("#{players_string(match)} finished")
+    |> render("finish.text", subscription_link: subscription_uuid_url(subscription), match: match, winner: winner)
+    |> render("finish.html", subscription_link: subscription_uuid_url(subscription), match: match, winner: winner)
   end
 end

@@ -98,7 +98,7 @@ defmodule Headsup.Web.SubscriptionController do
   end
 
   def live_matches(conn, _) do
-    matches = IO.inspect(GenServer.call(Matches.Status, {:get_matches}))
+    matches = IO.inspect(GenServer.call(Headsup.Matches.Status, {:get_matches}))
     render(conn, "matches.json", matches: matches)
   end
 end

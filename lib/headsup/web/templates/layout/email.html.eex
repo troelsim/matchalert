@@ -3,9 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <style type="text/css">
+      body { font-family: 'Helvetica', sans-serif }
+      .brand { color: #C6ED2C }
+    </style>
   </head>
   <body>
     <%= render @view_module, @view_template, assigns %>
+    <small>We hope you are enjoying <a href="http://www.matchalert.net">Matchalert</a>. If you have any suggestions for improvement, feel free to contact us at support@matchalert.net</a></small>
     <small>You can unsubscribe or change your player preferences at any time by <a href="<%= @subscription_link %>">clicking here</a>, or going to <%= @subscription_link %>.</small>
   </body>
 </html>

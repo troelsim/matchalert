@@ -1,0 +1,5 @@
+<%= players_string(@match) %>
+
+<%= player1(@match) %> just started playing against <%= player2(@match) %>.
+Round: <%= @match["round"] %>
+Tournament: <%= @match["tournament"] %>
