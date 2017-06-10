@@ -31,7 +31,7 @@ defmodule Headsup.Users do
       inner_join: s in Subscription, on: s.id == ps.subscription_id,
       select: s,
       distinct: s.id,
-      where: p.name in ^names
+      where: p.name in ^names and s.verified == true
     ) |> Repo.all
   end
   @doc """
