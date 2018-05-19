@@ -100,7 +100,10 @@ defmodule Headsup.Matches.Status do
   def recall() do
     {:ok, conn} = Redix.start_link(@redis_url)
     {:ok, bin} = Redix.command(conn, ["GET", "match_state"])
-    events = :erlang.binary_to_term(bin)
+    events = case bin do
+      nil -> []
+      something -> :erlang.binary_to_term(something)
+    end
     Redix.stop(conn)
     events
   end
