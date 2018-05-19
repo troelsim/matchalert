@@ -57,3 +57,5 @@ config :headsup, Headsup.Repo,
   database: "headsup_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :headsup, :redis, "redis://localhost:6379"

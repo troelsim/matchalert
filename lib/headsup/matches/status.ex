@@ -1,5 +1,6 @@
 defmodule Headsup.Matches.Status do
   use GenServer
+  @redis_url Application.get_env(:headsup, :redis)
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ok, name: Headsup.Matches.Status)
@@ -7,7 +8,7 @@ defmodule Headsup.Matches.Status do
 
   def init(:ok) do
     poll()
-    {:ok, []}
+    {:ok, recall() || []}
   end
 
   def poll do
@@ -89,6 +90,21 @@ defmodule Headsup.Matches.Status do
     end)
   end
 
+  def persist(events) do
+    {:ok, conn} = Redix.start_link(@redis_url)
+    Redix.command(conn, ["SET", "match_state", :erlang.term_to_binary(events)])
+    Redix.stop(conn)
+    events
+  end
+
+  def recall() do
+    {:ok, conn} = Redix.start_link(@redis_url)
+    {:ok, bin} = Redix.command(conn, ["GET", "match_state"])
+    events = :erlang.binary_to_term(bin)
+    Redix.stop(conn)
+    events
+  end
+
   @doc """
   Returns status or nil, either for a map or for an element in an Enum, matched by id
 
@@ -158,7 +174,7 @@ defmodule Headsup.Matches.Status do
     {
       :reply,
       event_changes(new_events, events),
-      merge_events(new_events, events)
+      merge_events(new_events, events) |> persist()
       #|> Enum.filter(fn event -> event["status"] != "Finished" end)
     }
   end

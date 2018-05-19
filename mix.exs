@@ -39,7 +39,9 @@ defmodule Headsup.Mixfile do
      {:bamboo, "~> 0.7"},
      {:bamboo_smtp, "~> 1.2.1"},
      {:uuid, "~> 1.1"},
-     {:slugger, "~> 0.2"}
+     {:slugger, "~> 0.2"},
+     {:redix, ">= 0.0.0"},
+     {:mix_test_watch, "~> 0.6", only: :dev, runtime: false}
    ]
   end
 
