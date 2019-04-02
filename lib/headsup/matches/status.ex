@@ -91,10 +91,14 @@ defmodule Headsup.Matches.Status do
   end
 
   def persist(events) do
-    {:ok, conn} = Redix.start_link(@redis_url)
-    Redix.command(conn, ["SET", "match_state", :erlang.term_to_binary(events)])
-    Redix.stop(conn)
-    events
+    try do
+      {:ok, conn} = Redix.start_link(@redis_url)
+      Redix.command(conn, ["SET", "match_state", :erlang.term_to_binary(events)])
+      Redix.stop(conn)
+      events
+    rescue
+      _ -> events
+    end
   end
 
   def recall() do
