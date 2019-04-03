@@ -1,5 +1,5 @@
-defmodule Headsup.Web.PlayerView do
-  use Headsup.Web, :view
+defmodule Matchalert.Web.PlayerView do
+  use Matchalert.Web, :view
 
   def render("index.json", %{players: players}) do
     %{

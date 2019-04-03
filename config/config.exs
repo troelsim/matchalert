@@ -6,15 +6,15 @@
 use Mix.Config
 
 # General application configuration
-config :headsup,
-  ecto_repos: [Headsup.Repo]
+config :matchalert,
+  ecto_repos: [Matchalert.Repo]
 
 # Configures the endpoint
-config :headsup, Headsup.Web.Endpoint,
+config :matchalert, Matchalert.Web.Endpoint,
   url: [host: "192.168.1.36"],
   secret_key_base: "bj6fcjl2jTtTGjdiT2RmUiRzVoLYnJeqb82YciKAr0+e9/M4ctVc2NoR+5a3v7nt",
-  render_errors: [view: Headsup.Web.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Headsup.PubSub,
+  render_errors: [view: Matchalert.Web.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Matchalert.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
@@ -23,7 +23,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 # SMTP
-config :headsup, Notifications.Mailer,
+config :matchalert, Notifications.Mailer,
   adapter: Bamboo.SMTPAdapter,
   port: 587,
   server: "smtp.sendgrid.net",

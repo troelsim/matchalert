@@ -1,4 +1,4 @@
-defmodule Headsup.DataCase do
+defmodule Matchalert.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Headsup.DataCase do
 
   using do
     quote do
-      alias Headsup.Repo
+      alias Matchalert.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Headsup.DataCase
+      import Matchalert.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Headsup.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Matchalert.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Headsup.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Matchalert.Repo, {:shared, self()})
     end
 
     :ok

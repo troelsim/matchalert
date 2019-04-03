@@ -1,6 +1,6 @@
-defmodule Headsup.Matches.Getter do
+defmodule Matchalert.Matches.Getter do
   @moduledoc """
-  Documentation for Headsup.Matches.
+  Documentation for Matchalert.Matches.
   """
 
   def zero_pad(n) do

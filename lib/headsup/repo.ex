@@ -1,5 +1,5 @@
-defmodule Headsup.Repo do
-  use Ecto.Repo, otp_app: :headsup
+defmodule Matchalert.Repo do
+  use Ecto.Repo, otp_app: :matchalert
 
   @doc """
   Dynamically loads the repository url from the

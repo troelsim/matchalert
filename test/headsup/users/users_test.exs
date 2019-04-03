@@ -1,10 +1,10 @@
-defmodule Headsup.UsersTest do
-  use Headsup.DataCase
+defmodule Matchalert.UsersTest do
+  use Matchalert.DataCase
 
-  alias Headsup.Users
+  alias Matchalert.Users
 
   describe "subscriptions" do
-    alias Headsup.Users.Subscription
+    alias Matchalert.Users.Subscription
 
     @valid_attrs %{email: "some email"}
     @update_attrs %{email: "some updated email"}
@@ -64,7 +64,7 @@ defmodule Headsup.UsersTest do
   end
 
   describe "players" do
-    alias Headsup.Users.Player
+    alias Matchalert.Users.Player
 
     @valid_attrs %{name: "some name"}
     @update_attrs %{name: "some updated name"}
@@ -124,7 +124,7 @@ defmodule Headsup.UsersTest do
   end
 
   describe "player_subscriptions" do
-    alias Headsup.Users.PlayerSubscription
+    alias Matchalert.Users.PlayerSubscription
 
     @valid_attrs %{}
     @update_attrs %{}

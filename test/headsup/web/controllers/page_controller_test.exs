@@ -1,5 +1,5 @@
-defmodule Headsup.Web.PageControllerTest do
-  use Headsup.Web.ConnCase
+defmodule Matchalert.Web.PageControllerTest do
+  use Matchalert.Web.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

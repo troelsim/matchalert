@@ -1,3 +1,3 @@
-defmodule Headsup.Web.PlayerSubscriptionView do
-  use Headsup.Web, :view
+defmodule Matchalert.Web.PlayerSubscriptionView do
+  use Matchalert.Web, :view
 end

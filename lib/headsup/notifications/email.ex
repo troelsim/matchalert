@@ -1,8 +1,8 @@
 defmodule Notifications.Email do
-  use Bamboo.Phoenix, view: Headsup.Web.EmailView
+  use Bamboo.Phoenix, view: Matchalert.Web.EmailView
 
   def subscription_uuid_url(subscription) do
-    url = Application.get_env(:headsup, Headsup.Web.Endpoint)[:url]
+    url = Application.get_env(:matchalert, Matchalert.Web.Endpoint)[:url]
     host = url[:host]
     [host: host, port: port, scheme: scheme] = Keyword.take(url, [:host, :port, :scheme])
     "#{scheme}://#{host}#{if port == 80 do "" else ":#{port}" end}/#{subscription.uuid}"
@@ -11,8 +11,8 @@ defmodule Notifications.Email do
   def email() do
     new_email()
     |> from("Matchalert <admin@matchalert.net>")
-    |> put_text_layout({Headsup.Web.LayoutView, "email.text"})
-    |> put_html_layout({Headsup.Web.LayoutView, "email.html"})
+    |> put_text_layout({Matchalert.Web.LayoutView, "email.text"})
+    |> put_html_layout({Matchalert.Web.LayoutView, "email.html"})
   end
 
   def confirmation_email(subscription) do

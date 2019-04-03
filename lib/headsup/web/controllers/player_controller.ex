@@ -1,7 +1,7 @@
-defmodule Headsup.Web.PlayerController do
-  use Headsup.Web, :controller
+defmodule Matchalert.Web.PlayerController do
+  use Matchalert.Web, :controller
 
-  alias Headsup.Users
+  alias Matchalert.Users
 
   def index(conn, _params) do
     players = Users.list_players()

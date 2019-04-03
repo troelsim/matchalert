@@ -1,7 +1,7 @@
-defmodule Headsup.Web.PlayerControllerTest do
-  use Headsup.Web.ConnCase
+defmodule Matchalert.Web.PlayerControllerTest do
+  use Matchalert.Web.ConnCase
 
-  alias Headsup.Users
+  alias Matchalert.Users
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}

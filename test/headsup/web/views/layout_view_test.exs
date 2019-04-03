@@ -1,3 +1,3 @@
-defmodule Headsup.Web.LayoutViewTest do
-  use Headsup.Web.ConnCase, async: true
+defmodule Matchalert.Web.LayoutViewTest do
+  use Matchalert.Web.ConnCase, async: true
 end

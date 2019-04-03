@@ -1,4 +1,4 @@
-defmodule Headsup.Repo.Migrations.AddVerifiedFieldToSubsription do
+defmodule Matchalert.Repo.Migrations.AddVerifiedFieldToSubsription do
   use Ecto.Migration
 
   def change do

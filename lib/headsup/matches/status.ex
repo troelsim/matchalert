@@ -1,9 +1,9 @@
-defmodule Headsup.Matches.Status do
+defmodule Matchalert.Matches.Status do
   use GenServer
-  @redis_url Application.get_env(:headsup, :redis)
+  @redis_url Application.get_env(:matchalert, :redis)
 
   def start_link(_) do
-    GenServer.start_link(__MODULE__, :ok, name: Headsup.Matches.Status)
+    GenServer.start_link(__MODULE__, :ok, name: Matchalert.Matches.Status)
   end
 
   def init(:ok) do
@@ -139,7 +139,7 @@ defmodule Headsup.Matches.Status do
   end
 
   @doc """
-  Get Headsup.Matches with changed status from two lists
+  Get Matchalert.Matches with changed status from two lists
 
 
   ## Examples
@@ -192,10 +192,10 @@ defmodule Headsup.Matches.Status do
 
   def handle_cast(:poll, events) do
     poll()
-    case Headsup.Matches.Getter.get_live_events() do
+    case Matchalert.Matches.Getter.get_live_events() do
       {:ok, new_events} ->
         {:reply, return_value, new_state} = handle_call({:get_changes, new_events}, self(), events)
-        Headsup.Matches.Change.handle_match_changes(return_value)
+        Matchalert.Matches.Change.handle_match_changes(return_value)
         {:noreply, new_state}
       {:error, _} ->
         {:noreply, events}

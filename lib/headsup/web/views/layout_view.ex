@@ -1,3 +1,3 @@
-defmodule Headsup.Web.LayoutView do
-  use Headsup.Web, :view
+defmodule Matchalert.Web.LayoutView do
+  use Matchalert.Web, :view
 end

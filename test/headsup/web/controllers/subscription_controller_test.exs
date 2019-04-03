@@ -1,7 +1,7 @@
-defmodule Headsup.Web.SubscriptionControllerTest do
-  use Headsup.Web.ConnCase
+defmodule Matchalert.Web.SubscriptionControllerTest do
+  use Matchalert.Web.ConnCase
 
-  alias Headsup.Users
+  alias Matchalert.Users
 
   @create_attrs %{email: "some email"}
   @update_attrs %{email: "some updated email"}

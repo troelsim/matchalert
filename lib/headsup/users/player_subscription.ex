@@ -1,12 +1,12 @@
-defmodule Headsup.Users.PlayerSubscription do
+defmodule Matchalert.Users.PlayerSubscription do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Headsup.Users.PlayerSubscription
+  alias Matchalert.Users.PlayerSubscription
 
 
   schema "users_player_subscriptions" do
-    belongs_to :subscription, Headsup.Users.Subscription
-    belongs_to :player, Headsup.Users.Player
+    belongs_to :subscription, Matchalert.Users.Subscription
+    belongs_to :player, Matchalert.Users.Player
     timestamps()
   end
 

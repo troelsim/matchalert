@@ -1,14 +1,14 @@
-defmodule Headsup.Users do
+defmodule Matchalert.Users do
   @moduledoc """
   The boundary for the Users system.
   """
 
   import Ecto.Query, warn: false
-  alias Headsup.Repo
+  alias Matchalert.Repo
 
-  alias Headsup.Users.Subscription
-  alias Headsup.Users.Player
-  alias Headsup.Users.PlayerSubscription
+  alias Matchalert.Users.Subscription
+  alias Matchalert.Users.Player
+  alias Matchalert.Users.PlayerSubscription
 
   @doc """
   Returns the list of subscriptions.
@@ -93,7 +93,7 @@ defmodule Headsup.Users do
 
   def create_subscription(attrs \\ %{}) do
     player_ids = (attrs["players"] || []) |> Enum.map(&String.to_integer/1)
-    players = Repo.all(from(p in Headsup.Users.Player, where: p.id in ^player_ids))
+    players = Repo.all(from(p in Matchalert.Users.Player, where: p.id in ^player_ids))
     %Subscription{}
     |> Subscription.changeset(Map.merge(attrs, %{"uuid" => UUID.uuid1()}))
     |> Ecto.Changeset.put_assoc(:players, players)
@@ -124,7 +124,7 @@ defmodule Headsup.Users do
   """
   def set_players_for_subscription(%Subscription{} = subscription, attrs) do
     player_ids = attrs["players"] |> Enum.map(&String.to_integer/1)
-    players = Repo.all(from(p in Headsup.Users.Player, where: p.id in ^player_ids))
+    players = Repo.all(from(p in Matchalert.Users.Player, where: p.id in ^player_ids))
     get_subscription!(subscription.uuid)
     |> Ecto.Changeset.change()
     |> Ecto.Changeset.put_assoc(:players, players)
@@ -160,7 +160,7 @@ defmodule Headsup.Users do
     Subscription.changeset(subscription, %{})
   end
 
-  alias Headsup.Users.Player
+  alias Matchalert.Users.Player
 
   @doc """
   Returns the list of players.
@@ -256,7 +256,7 @@ defmodule Headsup.Users do
     Player.changeset(player, %{})
   end
 
-  alias Headsup.Users.PlayerSubscription
+  alias Matchalert.Users.PlayerSubscription
 
   @doc """
   Returns the list of player_subscriptions.

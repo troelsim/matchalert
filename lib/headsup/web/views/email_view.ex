@@ -1,5 +1,5 @@
-defmodule Headsup.Web.EmailView do
-  use Headsup.Web, :view
+defmodule Matchalert.Web.EmailView do
+  use Matchalert.Web, :view
 
   def players_string(%{"players" => [player1, player2]}) do
     "#{player1["name"]} vs. #{player2["name"]}"

@@ -1,4 +1,4 @@
-defmodule Headsup.Web.ChannelCase do
+defmodule Matchalert.Web.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule Headsup.Web.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint Headsup.Web.Endpoint
+      @endpoint Matchalert.Web.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Headsup.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Matchalert.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Headsup.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Matchalert.Repo, {:shared, self()})
     end
     :ok
   end

@@ -1,7 +1,7 @@
-defmodule Headsup.Users.Subscription do
+defmodule Matchalert.Users.Subscription do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Headsup.Users.Subscription
+  alias Matchalert.Users.Subscription
 
 
   schema "users_subscriptions" do
@@ -9,7 +9,7 @@ defmodule Headsup.Users.Subscription do
     field :uuid, :string
     field :verified, :boolean
 
-    many_to_many :players, Headsup.Users.Player, join_through: Headsup.Users.PlayerSubscription, on_replace: :delete, on_delete: :delete_all
+    many_to_many :players, Matchalert.Users.Player, join_through: Matchalert.Users.PlayerSubscription, on_replace: :delete, on_delete: :delete_all
     timestamps()
   end
 

@@ -1,5 +1,5 @@
-defmodule Headsup.Web.Router do
-  use Headsup.Web, :router
+defmodule Matchalert.Web.Router do
+  use Matchalert.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,7 +13,7 @@ defmodule Headsup.Web.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Headsup.Web do
+  scope "/", Matchalert.Web do
     pipe_through :browser # Use the default browser stack
 
     get "/", SubscriptionController, :new
@@ -28,7 +28,7 @@ defmodule Headsup.Web.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Headsup.Web do
+  # scope "/api", Matchalert.Web do
   #   pipe_through :api
   # end
 end

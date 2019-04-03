@@ -1,5 +1,5 @@
-defmodule Headsup.Web.PageController do
-  use Headsup.Web, :controller
+defmodule Matchalert.Web.PageController do
+  use Matchalert.Web, :controller
 
   def index(conn, _params) do
     render conn, "index.html"

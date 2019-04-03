@@ -1,14 +1,14 @@
-defmodule Headsup.Web.Endpoint do
-  use Phoenix.Endpoint, otp_app: :headsup
+defmodule Matchalert.Web.Endpoint do
+  use Phoenix.Endpoint, otp_app: :matchalert
 
-  socket "/socket", Headsup.Web.UserSocket
+  socket "/socket", Matchalert.Web.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :headsup, gzip: false,
+    at: "/", from: :matchalert, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -35,10 +35,10 @@ defmodule Headsup.Web.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_headsup_key",
+    key: "_matchalert_key",
     signing_salt: "l023w4N6"
 
-  plug Headsup.Web.Router
+  plug Matchalert.Web.Router
 
   @doc """
   Dynamically loads configuration from the system environment

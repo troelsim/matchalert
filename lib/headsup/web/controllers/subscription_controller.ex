@@ -1,14 +1,14 @@
-defmodule Headsup.Web.SubscriptionController do
-  use Headsup.Web, :controller
+defmodule Matchalert.Web.SubscriptionController do
+  use Matchalert.Web, :controller
 
-  alias Headsup.Users
+  alias Matchalert.Users
 
   def index(conn, _params) do
     render(conn, "index.html", subscriptions: [])
   end
 
   def new(conn, _params) do
-    changeset = Users.change_subscription(%Headsup.Users.Subscription{})
+    changeset = Users.change_subscription(%Matchalert.Users.Subscription{})
     players = Users.list_players()
     render(conn, "new.html", changeset: changeset, players: players)
   end
@@ -97,7 +97,7 @@ defmodule Headsup.Web.SubscriptionController do
   end
 
   def live_matches(conn, _) do
-    matches = IO.inspect(GenServer.call(Headsup.Matches.Status, {:get_matches}))
+    matches = IO.inspect(GenServer.call(Matchalert.Matches.Status, {:get_matches}))
     render(conn, "matches.json", matches: matches)
   end
 end

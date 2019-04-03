@@ -1,4 +1,4 @@
-defmodule Headsup.Repo.Migrations.PlayerSlug do
+defmodule Matchalert.Repo.Migrations.PlayerSlug do
   use Ecto.Migration
 
   def change do

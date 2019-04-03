@@ -1,8 +1,8 @@
-defmodule Headsup.Mixfile do
+defmodule Matchalert.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :headsup,
+    [app: :matchalert,
      version: "0.0.1",
      elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -16,7 +16,7 @@ defmodule Headsup.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Headsup.Application, []},
+    [mod: {Matchalert.Application, []},
      extra_applications: [:logger, :runtime_tools]]
   end
 

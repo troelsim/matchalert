@@ -2,7 +2,7 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :headsup, Headsup.Web.Endpoint,
+config :matchalert, Matchalert.Web.Endpoint,
   http: [port: 4001],
   server: false
 
@@ -10,10 +10,10 @@ config :headsup, Headsup.Web.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :headsup, Headsup.Repo,
+config :matchalert, Matchalert.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "***REMOVED***",
   password: "holahola",
-  database: "headsup_test",
+  database: "matchalert_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

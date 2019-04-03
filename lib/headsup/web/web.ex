@@ -1,12 +1,12 @@
-defmodule Headsup.Web do
+defmodule Matchalert.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use Headsup.Web, :controller
-      use Headsup.Web, :view
+      use Matchalert.Web, :controller
+      use Matchalert.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -18,17 +18,17 @@ defmodule Headsup.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Headsup.Web
+      use Phoenix.Controller, namespace: Matchalert.Web
       import Plug.Conn
-      import Headsup.Web.Router.Helpers
-      import Headsup.Web.Gettext
+      import Matchalert.Web.Router.Helpers
+      import Matchalert.Web.Gettext
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/headsup/web/templates",
-                        namespace: Headsup.Web
+      use Phoenix.View, root: "lib/matchalert/web/templates",
+                        namespace: Matchalert.Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
@@ -36,9 +36,9 @@ defmodule Headsup.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Headsup.Web.Router.Helpers
-      import Headsup.Web.ErrorHelpers
-      import Headsup.Web.Gettext
+      import Matchalert.Web.Router.Helpers
+      import Matchalert.Web.ErrorHelpers
+      import Matchalert.Web.Gettext
     end
   end
 
@@ -53,7 +53,7 @@ defmodule Headsup.Web do
   def channel do
     quote do
       use Phoenix.Channel
-      import Headsup.Web.Gettext
+      import Matchalert.Web.Gettext
     end
   end
 

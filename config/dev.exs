@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :headsup, Headsup.Web.Endpoint,
+config :matchalert, Matchalert.Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -31,14 +31,14 @@ config :headsup, Headsup.Web.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :headsup, Headsup.Web.Endpoint,
+config :matchalert, Matchalert.Web.Endpoint,
   url: [host: "localhost", port: 4000, scheme: "http"],
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/headsup/web/views/.*(ex)$},
-      ~r{lib/headsup/web/templates/.*(eex)$}
+      ~r{lib/matchalert/web/views/.*(ex)$},
+      ~r{lib/matchalert/web/templates/.*(eex)$}
     ]
   ]
 
@@ -50,7 +50,7 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :headsup, Headsup.Repo,
+config :matchalert, Matchalert.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "***REMOVED***",
   password: "holahola",
@@ -58,4 +58,4 @@ config :headsup, Headsup.Repo,
   hostname: "localhost",
   pool_size: 10
 
-config :headsup, :redis, "redis://localhost:6379"
+config :matchalert, :redis, "redis://localhost:6379"

@@ -1,4 +1,4 @@
-defmodule Headsup.Repo.Migrations.UniqueConstraintOnUserEmail do
+defmodule Matchalert.Repo.Migrations.UniqueConstraintOnUserEmail do
   use Ecto.Migration
 
   def change do

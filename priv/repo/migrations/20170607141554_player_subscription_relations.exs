@@ -1,4 +1,4 @@
-defmodule Headsup.Repo.Migrations.PlayerSubscriptionRelations do
+defmodule Matchalert.Repo.Migrations.PlayerSubscriptionRelations do
   use Ecto.Migration
 
   def change do
