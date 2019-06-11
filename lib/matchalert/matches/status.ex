@@ -1,6 +1,5 @@
 defmodule Matchalert.Matches.Status do
   use GenServer
-  @redis_url Application.get_env(:matchalert, :redis)
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ok, name: Matchalert.Matches.Status)
@@ -13,6 +12,10 @@ defmodule Matchalert.Matches.Status do
 
   def poll do
     Process.send_after(self(), {:"$gen_cast", :poll}, 30000)
+  end
+
+  defp redis_url() do
+    System.get_env("REDIS_URL")
   end
 
   @doc """
@@ -92,7 +95,7 @@ defmodule Matchalert.Matches.Status do
 
   def persist(events) do
     try do
-      {:ok, conn} = Redix.start_link(@redis_url)
+      {:ok, conn} = Redix.start_link(redis_url())
       Redix.command(conn, ["SET", "match_state", :erlang.term_to_binary(events)])
       Redix.stop(conn)
       events
@@ -102,14 +105,18 @@ defmodule Matchalert.Matches.Status do
   end
 
   def recall() do
-    {:ok, conn} = Redix.start_link(@redis_url)
-    {:ok, bin} = Redix.command(conn, ["GET", "match_state"])
-    events = case bin do
-      nil -> []
-      something -> :erlang.binary_to_term(something)
+    try do
+      {:ok, conn} = Redix.start_link(redis_url())
+      {:ok, bin} = Redix.command(conn, ["GET", "match_state"])
+      events = case bin do
+        nil -> []
+        something -> :erlang.binary_to_term(something)
+      end
+      Redix.stop(conn)
+      events
+    rescue
+      _ -> []
     end
-    Redix.stop(conn)
-    events
   end
 
   @doc """
