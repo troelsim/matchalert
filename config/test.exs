@@ -12,7 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :matchalert, Matchalert.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "***REMOVED***",
+  username: "postgres",
   password: "holahola",
   database: "matchalert_test",
   hostname: "localhost",

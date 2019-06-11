@@ -52,10 +52,9 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :matchalert, Matchalert.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "***REMOVED***",
+  username: "postgres",
   password: "holahola",
-  database: "headsup_dev",
+  database: "matchalert_dev",
   hostname: "localhost",
   pool_size: 10
 
-config :matchalert, :redis, "redis://localhost:6379"
