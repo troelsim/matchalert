@@ -40,15 +40,11 @@ defmodule Notifications.Email do
   end
 
   @doc """
-    iex> Notifications.Email.match_start_email(
+    iex> result = Notifications.Email.match_start_email(
     ...>  %{"players" => [%{"name" => "Isner"}, %{"name" => "Mahut"}], "tournament" => "Wimbledon", "round" => "Quarterfinal"},
-    ...>  %{email: "troels@matchalert.net"})
-    %Bamboo.Email{
-      from: "admin@matchalert.net",
-      subject: "Isner vs. Mahut",
-      text_body: "Isner vs. Mahut just started at the quarterfinal of the Wimbledon",
-      to: "troels@matchalert.net"
-    }
+    ...>  %{email: "troels@matchalert.net", uuid: "abcd"})
+    iex> result.text_body =~ "started" 
+    true
   """
   def match_start_email(match, subscription) do
     email()
@@ -59,14 +55,11 @@ defmodule Notifications.Email do
   end
 
   @doc """
-    iex> Notifications.Email.match_finished_email(
+    iex> result = Notifications.Email.match_finished_email(
     ...>  %{"players" => [%{"name" => "Isner", "is_winner" => true}, %{"name" => "Mahut"}], "tournament" => "Wimbledon", "round" => "Quarterfinal"},
-    ...>  %{email: "troels@matchalert.net"})
-    %Bamboo.Email{
-      from: "admin@matchalert.net",
-      subject: "Isner vs. Mahut",
-      to: "troels@matchalert.net"
-    }
+    ...>  %{email: "troels@matchalert.net", uuid: "abcd"})
+    iex> result.text_body =~ "finished"
+    true
   """
   def match_finished_email(match, subscription) do
     winner = match["players"] |> Enum.find(&(&1["is_winner"]))

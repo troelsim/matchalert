@@ -4,6 +4,7 @@ use Mix.Config
 # you can enable the server option below.
 config :matchalert, Matchalert.Web.Endpoint,
   http: [port: 4001],
+  url: [host: "localhost", port: 4001, scheme: "http"],
   server: false
 
 # Print only warnings and errors during test
